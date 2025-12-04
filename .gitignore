@@ -209,3 +209,6 @@ __marimo__/
 # Local history for VS Code
 .vscode/
 .history/
+
+# CatBoost model snapshot files
+catboost_info/
