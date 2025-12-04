@@ -1,0 +1,58 @@
+feature,importance
+onehot__deposit_type_Non Refund,0.74031436
+numeric__required_car_parking_spaces,0.082730785
+onehot__deposit_type_No Deposit,0.0594209
+onehot__market_segment_Online TA,0.017085027
+numeric__previous_cancellations,0.016693836
+onehot__distribution_channel_TA/TO,0.0066960566
+onehot__deposit_type_Refundable,0.0063071838
+onehot__customer_type_Transient,0.0057355524
+target__country,0.004429463
+numeric__is_repeated_guest,0.0038302182
+numeric__total_of_special_requests,0.0037027844
+numeric__arrival_date_year,0.0030536726
+target__agent,0.0029264197
+numeric__previous_bookings_not_canceled,0.0027980928
+onehot__customer_type_Transient-Party,0.0027305295
+onehot__market_segment_Direct,0.0024714263
+onehot__meal_Undefined,0.0022027348
+onehot__distribution_channel_Corporate,0.0019363186
+onehot__market_segment_Offline TA/TO,0.0017514759
+onehot__market_segment_Groups,0.0017505467
+numeric__lead_time,0.001733876
+onehot__meal_FB,0.0014730806
+onehot__distribution_channel_Direct,0.0014202567
+onehot__arrival_date_month_August,0.0012673829
+onehot__arrival_date_month_October,0.0012188288
+onehot__arrival_date_month_January,0.001181705
+numeric__adults,0.0011549057
+onehot__hotel_City Hotel,0.0011387977
+numeric__stays_in_weekend_nights,0.001127723
+onehot__arrival_date_month_December,0.0010874028
+numeric__stays_in_week_nights,0.0010187487
+onehot__arrival_date_month_March,0.0009711872
+onehot__meal_HB,0.0009698408
+numeric__days_in_waiting_list,0.00094933313
+onehot__arrival_date_month_June,0.00093554996
+onehot__arrival_date_month_May,0.0009295534
+onehot__arrival_date_month_November,0.0009167825
+onehot__market_segment_Corporate,0.00085411116
+onehot__meal_BB,0.0008523559
+numeric__arrival_date_week_number,0.00084087346
+onehot__meal_SC,0.00083747983
+onehot__arrival_date_month_February,0.00082165626
+onehot__arrival_date_month_July,0.00081784127
+onehot__hotel_Resort Hotel,0.00080457726
+onehot__arrival_date_month_September,0.0008013026
+onehot__customer_type_Contract,0.0007145661
+onehot__arrival_date_month_April,0.00069347245
+numeric__children,0.00067978963
+numeric__adr,0.00063429365
+numeric__arrival_date_day_of_month,0.00063423923
+onehot__distribution_channel_GDS,0.00053560536
+onehot__market_segment_Aviation,0.0005337704
+numeric__babies,0.00038136778
+onehot__market_segment_Complementary,0.0003804671
+onehot__customer_type_Group,0.000119924574
+onehot__distribution_channel_Undefined,0.0
+onehot__market_segment_Undefined,0.0
