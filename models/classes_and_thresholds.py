@@ -33,3 +33,4 @@ class FeatureEngineer(BaseEstimator, TransformerMixin):
 
 # Define classification thresholds
 CANCELLATION_THRESHOLD = 0.4  # Threshold for classifying a booking as cancelled
+NO_SHOW_THRESHOLD = 0.6       # Threshold for classifying a booking as no-show
