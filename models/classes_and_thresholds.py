@@ -70,3 +70,4 @@ class SchemaValidator(BaseEstimator, TransformerMixin):
 CANCELLATION_THRESHOLD = 0.4  # Threshold for classifying a booking as cancelled
 NO_SHOW_THRESHOLD = 0.6       # Threshold for classifying a booking as no-show
 REPEATED_GUEST_THRESHOLD = 0.76  # Threshold for classifying a booking as a repeated guest
+ROOM_UPGRADES_THRESHOLD = 0.46  # Threshold for classifying a booking as having room upgrades
