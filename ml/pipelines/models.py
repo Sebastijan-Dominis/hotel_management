@@ -21,7 +21,7 @@ class PipelineConfig(BaseModel):
     version: str = Field(..., description="Version of the pipeline (e.g., v1)")
     description: str | None = Field(None, description="Optional description of the pipeline")
     steps: list[str] = Field(..., description="Ordered list of pipeline steps")
-    assumptions: dict = Field(..., description="Assumptions about supported tasks and categorical handling")
+    assumptions: dict[str, bool] = Field(..., description="Assumptions about supported tasks and categorical handling")
     lineage: LineageConfig
 
     @field_validator("version")

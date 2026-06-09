@@ -102,7 +102,7 @@ def parse_args():
         "--model-path",
         type=str,
         default=None,
-        help="Path to a pre-trained CTGAN model to load. If not provided, uses a default path."
+        help="Path to a pre-trained CTGAN model to load. If not provided, trains a new model."
     )
 
     parser.add_argument(

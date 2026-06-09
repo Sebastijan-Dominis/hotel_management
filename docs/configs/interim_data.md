@@ -30,15 +30,15 @@ The purpose of the interim stage is to *transform raw data into memory-optimized
 
 |Field|Type|Description|
 |:----|:---|:----------|
-|`data`|object|Dataset identity and output configuration|
-|`data_schema`|object|Expected schema of the interim dataset|
-|`raw_data_version`|string|Raw dataset version used as input|
-|`cleaning`|object|Column normalization rules|
-|`invariants`|object|Column-level validation and filtering rules|
-|`drop_duplicates`|bool|Whether duplicate rows should be removed|
-|`drop_missing_ints`|bool|Whether rows with missing integer values should be dropped|
-|`min_rows`|int|Minimum number of rows required after cleaning|
-|`lineage`|object|Metadata describing config provenance|
+|`data`|object|Dataset identity and output configuration.|
+|`data_schema`|object|Expected schema of the interim dataset.|
+|`raw_data_version`|string|Raw dataset version used as input.|
+|`cleaning`|object|Column normalization rules.|
+|`invariants`|object|Column-level validation and filtering rules.|
+|`drop_duplicates`|boolean|Whether duplicate rows should be removed.|
+|`drop_missing_ints`|boolean|Whether rows with missing integer values should be dropped. Defaults to True if not specified.|
+|`min_rows`|integer|Minimum number of rows required after cleaning. Defaults to 0 if not specified.|
+|`lineage`|object|Metadata describing config provenance.|
 
 ### `data`
 
@@ -46,9 +46,9 @@ Defines metadata for the produced interim dataset.
 
 |Field|Type|Description|
 |:----|:---|:----------|
-|`name`|string|Dataset name|
-|`version`|string|Dataset version (`v{integer}` format)|
-|`output`|object|Output storage configuration|
+|`name`|string|Dataset name.|
+|`version`|string|Dataset version (`v{integer}` format).|
+|`output`|object|Output storage configuration.|
 
 ### `data.output`
 

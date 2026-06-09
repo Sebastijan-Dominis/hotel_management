@@ -27,8 +27,6 @@ class TaskType(StrEnum):
 
     classification = "classification"
     regression = "regression"
-    ranking = "ranking"
-    time_series = "time_series"
 
 class TaskConfig(BaseModel):
     """Task type metadata for model execution and validation logic."""
@@ -165,14 +163,14 @@ class SegmentationConfig(BaseModel):
     @field_validator("include_in_model", mode="after")
     @classmethod
     def validate_include_in_model_based_on_enabled(cls, v, info):
-        """Validate model-include flag consistency with segmentation state.
+        """Validate include_in_model flag consistency with segmentation state.
 
         Args:
-            v: Include-in-model flag value.
+            v: Include_in_model flag value.
             info: Pydantic field-validation context.
 
         Returns:
-            bool: Validated include-in-model flag.
+            bool: Validated include_in_model flag.
         """
 
         enabled = info.data.get("enabled", False)
@@ -191,8 +189,26 @@ class FeatureSetConfig(BaseModel):
 
     name: str
     version: str
-    data_format: str
-    file_name: str
+    data_format: Literal['csv', 'parquet', 'json', 'arrow'] = "parquet"
+    file_name: str = "features.parquet"
+
+    @field_validator("version", mode="before")
+    @classmethod
+    def validate_version_format(cls, v):
+        """Ensure feature set version follows ``v{number}`` convention.
+
+        Args:
+            v: Feature set version value.
+
+        Returns:
+            str: Validated feature set version string.
+        """
+
+        if not isinstance(v, str) or not v.startswith("v") or not v[1:].isdigit():
+            msg = f"Version must be in format 'v{{number}}', e.g. 'v1', 'v2', etc. Got '{v}'."
+            logger.error(msg)
+            raise ConfigError(msg)
+        return v
 
 class SplitConfig(BaseModel):
     """Train/validation/test split strategy settings."""
@@ -223,6 +239,24 @@ class PipelineConfig(BaseModel):
 
     version: str
     path: str
+
+    @field_validator("version", mode="before")
+    @classmethod
+    def validate_version_format(cls, v):
+        """Ensure pipeline config version follows ``v{number}`` convention.
+
+        Args:
+            v: Pipeline config version value.
+
+        Returns:
+            str: Validated pipeline config version string.
+        """
+
+        if not isinstance(v, str) or not v.startswith("v") or not v[1:].isdigit():
+            msg = f"Version must be in format 'v{{number}}', e.g. 'v1', 'v2', etc. Got '{v}'."
+            logger.error(msg)
+            raise ConfigError(msg)
+        return v
 
 class ScoringConfig(BaseModel):
     """Metric-scoring policy and optional thresholds."""
@@ -342,7 +376,7 @@ class ExplainabilityConfig(BaseModel):
     top_k: int = 20
     methods: ExplainabilityMethodsConfig = Field(default_factory=ExplainabilityMethodsConfig)
 
-DATA_TYPE = Literal["tabular", "time-series"]
+DATA_TYPE = Literal["tabular"]
 
 class ModelSpecsLineageConfig(BaseModel):
     """Lineage metadata for model specification creation."""
@@ -384,6 +418,24 @@ class ModelSpecs(BaseModel):
     meta: MetaConfig = Field(default_factory=MetaConfig, alias="_meta")
 
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    @field_validator("version", mode="before")
+    @classmethod
+    def validate_version_format(cls, v):
+        """Ensure model version follows ``v{number}`` convention.
+
+        Args:
+            v: Model version value.
+
+        Returns:
+            str: Validated model version string.
+        """
+
+        if not isinstance(v, str) or not v.startswith("v") or not v[1:].isdigit():
+            msg = f"Version must be in format 'v{{number}}', e.g. 'v1', 'v2', etc. Got '{v}'."
+            logger.error(msg)
+            raise ConfigError(msg)
+        return v
 
     @model_validator(mode="after")
     def validate_task_target_consistency(self):

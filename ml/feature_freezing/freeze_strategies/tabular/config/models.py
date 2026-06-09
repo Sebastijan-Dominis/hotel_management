@@ -30,7 +30,7 @@ class DatasetConfig(BaseModel):
     ref: str = Field("data/processed", description="Reference path for the dataset, e.g., 'data/processed'")
     name: str = Field(..., description="Name of the dataset, e.g., 'hotel_bookings'")
     version: str = Field(..., description="Version of the dataset, e.g., 'v1'")
-    format: Literal["csv", "parquet"]
+    format: Literal["csv", "parquet", "json", "arrow"]
     merge_key: str | list[str] = Field(
         "row_id", description="Key(s) to merge datasets on, default is 'row_id'"
     )
@@ -43,6 +43,24 @@ class DatasetConfig(BaseModel):
     path_suffix: str = Field(
         "data.{format}", description="Suffix for the dataset file, supports {format} placeholder"
     )
+
+    @field_validator("version", mode="before")
+    @classmethod
+    def validate_version_format(cls, v):
+        """Ensure dataset version follows ``v{number}`` convention.
+
+        Args:
+            v: Dataset version value.
+
+        Returns:
+            str: Validated dataset version string.
+        """
+
+        if not isinstance(v, str) or not v.startswith("v") or not v[1:].isdigit():
+            msg = f"Version must be in format 'v{{number}}', e.g. 'v1', 'v2', etc. Got '{v}'."
+            logger.error(msg)
+            raise ConfigError(msg)
+        return v
 
     @field_validator("merge_key", mode="before")
     def ensure_merge_key_list(cls, v):
@@ -101,7 +119,7 @@ class StorageConfig(BaseModel):
     """Snapshot storage format and compression settings."""
 
     format: Literal["parquet"]
-    compression: str | None = "snappy"
+    compression: Literal['snappy', 'gzip', 'brotli', 'lz4', 'zstd'] | None = Field("snappy", description="Compression method to use when saving the data (default: 'snappy').")
 
 class LineageConfig(BaseModel):
     """Lineage metadata for feature registry config provenance."""
