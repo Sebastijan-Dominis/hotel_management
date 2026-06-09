@@ -32,25 +32,24 @@ jobs:
 
       - name: Install additional pip dependencies (CPU-safe version of torch)
         run: |
-          conda run -n hotel_management pip install torch==2.10.0
-          conda run -n hotel_management pip install -r requirements.txt
-          conda run -n hotel_management pip install pytest
-          conda run -n hotel_management pip install coverage
-          conda run -n hotel_management pip install httpx
+          conda run -n hotel_management python -m pip install torch==2.10.0
+          conda run -n hotel_management python -m pip install -r requirements.txt
+          conda run -n hotel_management python -m pip install pytest
+          conda run -n hotel_management python -m pip install coverage
+          conda run -n hotel_management python -m pip install httpx
 
       - name: Show environment
         run: conda run -n hotel_management conda list
 
-      - name: Debug coverage
+      - name: Debug environment
         run: |
-          conda run -n hotel_management which python
-          conda run -n hotel_management which coverage
-          conda run -n hotel_management coverage --version
-          conda run -n hotel_management python -m coverage --version
+          conda run -n hotel_management python -c "import sys; print(sys.executable)"
+          conda run -n hotel_management python -c "import coverage; print(coverage.__version__)"
 
       - name: Run tests with coverage
         run: |
           conda run -n hotel_management python -m coverage run -m pytest -v --maxfail=1 --disable-warnings
 
       - name: Show coverage summary and enforce minimum
-        run: conda run -n hotel_management coverage report -m -i --fail-under=90
+        run: |
+          conda run -n hotel_management python -m coverage report -m -i --fail-under=90
