@@ -41,8 +41,16 @@ jobs:
       - name: Show environment
         run: conda run -n hotel_management conda list
 
+      - name: Debug coverage
+        run: |
+          conda run -n hotel_management which python
+          conda run -n hotel_management which coverage
+          conda run -n hotel_management coverage --version
+          conda run -n hotel_management python -m coverage --version
+
       - name: Run tests with coverage
-        run: conda run -n hotel_management coverage run -m pytest -v --maxfail=1 --disable-warnings
+        run: |
+          conda run -n hotel_management python -m coverage run -m pytest -v --maxfail=1 --disable-warnings
 
       - name: Show coverage summary and enforce minimum
         run: conda run -n hotel_management coverage report -m -i --fail-under=90
