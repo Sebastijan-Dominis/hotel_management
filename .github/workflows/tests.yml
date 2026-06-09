@@ -30,6 +30,9 @@ jobs:
           use-mamba: true
           auto-activate-base: false
 
+      - name: Install pip into conda env
+        run: conda run -n hotel_management conda install -y pip
+
       - name: Install additional pip dependencies (CPU-safe version of torch)
         run: |
           conda run -n hotel_management python -m pip install torch==2.10.0
